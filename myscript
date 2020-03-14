@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+
+#example.jpg
+
+import argparse
+from PIL import Image, ImageOps
+
+
+
+parser = argparse.ArgumentParser(description='Dices Image App')
+parser.add_argument("-width", default=1, help="Sets Width of border")
+parser.add_argument("-color", default='black', help="Sets the color of the border: HEX")
+
+parser.add_argument("-filetype", default='.png', help="filetype")
+
+parser.add_argument("-file", default='example', help="file Name")
+parser.add_argument("-replace", default=0, help="replace image: bool")
+
+
+args = parser.parse_args()
+width = args.width
+color = args.color
+filename = args.file
+filetype = args.filetype
+
+toreplace = args.replace
+
+
+## ADD IMAGE BORDER
+
+
+
+img = Image.open(filename + '.jpg')
+
+img_with_border = ImageOps.expand(img,border=int(width),fill=color)
+if int(toreplace) == 1:
+	img_with_border.save(filename+filetype)
+else:
+	img_with_border.save(filename+"-border"+filetype)
+
+
+print("done")
